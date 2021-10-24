@@ -1,0 +1,48 @@
+Started scanner test.
+tokentype:  2  which:   19      program
+tokentype:  3  value:            graph1
+tokentype:  1  which:    4            (
+tokentype:  3  value:            output
+tokentype:  1  which:    5            )
+tokentype:  1  which:    2            ;
+tokentype:  2  which:    4        const
+tokentype:  3  value:                 d
+tokentype:  0  which:    6            =
+tokentype:  5  type:     1 6.250000e-02
+tokentype:  1  which:    2            ;
+tokentype:  3  value:                 s
+tokentype:  0  which:    6            =
+tokentype:  5  type:     0           32
+tokentype:  1  which:    2            ;
+tokentype:  3  value:                 h
+tokentype:  0  which:    6            =
+tokentype:  5  type:     0           34
+tokentype:  1  which:    2            ;
+tokentype:  3  value:                 c
+tokentype:  0  which:    6            =
+tokentype:  5  type:     1 6.283180e+00
+tokentype:  1  which:    2            ;
+LPHA   1
+#define NUMERIC 2
+#define SPECIAL 3
+
+#define DEBUGGETTOKEN 0
+
+TOKEN talloc();
+int peekchar();
+int peek2char();
+void init_charclass();
+TOKEN gettoken();
+void printtoken(TOKEN tok);
+
+void skipblanks ();
+void initscanner ();
+int EOFFLG;
+int CHARCLASS[MAXCHARCLASS];
+TOKEN identifier (TOKEN tok);
+TOKEN getstring (TOKEN tok);
+TOKEN special (TOKEN tok);
+TOKEN number (TOKEN tok);
+
+int yylex();
+void yyerror (char const *s);

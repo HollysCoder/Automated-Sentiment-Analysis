@@ -1,0 +1,3 @@
+yacc parse.y
+cc -c y.tab.c
+cc -o parser y.tab.o lex.yy.o printtoken.o pprint.o symtab.o -ll

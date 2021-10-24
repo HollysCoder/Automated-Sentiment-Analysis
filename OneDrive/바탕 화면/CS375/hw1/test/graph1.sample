@@ -1,0 +1,140 @@
+Example of result from parsing graph1.pas
+
+Note: your version may have more progn operators; that is okay.
+
+yyparse result =        0
+Symbol table level 0
+ 38027280        real  BASIC  basicdt   1          siz     8
+ 38027376     integer  BASIC  basicdt   0          siz     4
+ 38027472        char  BASIC  basicdt   2          siz     1
+ 38027568     boolean  BASIC  basicdt   3          siz     4
+ 38027664         exp  knd 5 0  typ 38027760  lvl  0  siz     0  off     0
+(FUNCTION real
+          real)
+ 38028240         sin  knd 5 0  typ 38028336  lvl  0  siz     0  off     0
+(FUNCTION real
+          real)
+   ...
+Symbol table level 1
+ 38050576           d  CONST  typ    REAL  val  6.250000e-02
+ 38050928           s  CONST  typ INTEGER  val  32
+ 38051280           h  CONST  typ INTEGER  val  34
+ 38051.L4 			#  jump 
+.L3:
+	movsd	.LC5(%rip),%xmm0   	#  0.062500 -> %xmm0
+	movl	-32(%rbp),%eax     	#  i -> %eax
+	cvtsi2sd	%eax,%xmm1    	#  float %eax -> %xmm1
+	mulsd	%xmm1,%xmm0         	#  %xmm0 * %xmm1 -> %xmm0
+	movsd	%xmm0,-48(%rbp)     	#  %xmm0 -> x
+	movsd	-48(%rbp),%xmm0     	#  x -> %xmm0
+	movsd	.LC666(%rip),%xmm1   	#  0.000000 -> %xmm1
+	xorpd	%xmm1,%xmm0           	#  negate %xmm0
+	call	exp@PLT          	#  exp()
+	movsd	%xmm0,-8(%rbp)     	#  %xmm0 -> temp
+	movsd	.LC6(%rip),%xmm0   	#  6.283180 -> %xmm0
+	movsd	-48(%rbp),%xmm1     	#  x -> %xmm1
+	mulsd	%xmm1,%xmm0         	#  %xmm0 * %xmm1 -> %xmm0
+	call	sin@PLT          	#  sin()
+	movsd	-8(%rbp),%xmm1     	#  temp -> %xmm1
+	mulsd	%xmm0,%xmm1         	#  %xmm1 * %xmm0 -> %xmm1
+	movsd	%xmm1,-40(%rbp)     	#  %xmm1 -> y
+	movsd	.LC7(%rip),%xmm0   	#  32.000000 -> %xmm0
+	movsd	-40(%rbp),%xmm1     	#  y -> %xmm1
+	mulsd	%xmm1,%xmm0         	#  %xmm0 * %xmm1 -> %xmm0
+	call	round@PLT          	#  round()
+	movsd	.LC8(%rip),%xmm1   	#  34.000000 -> %xmm1
+	addsd	%xmm1,%xmm0         	#  %xmm0 + %xmm1 -> %xmm0
+	cvttsd2si	%xmm0,%eax    	#  fix %xmm0 -> %eax
+	movl	%eax,-28(%rbp)     	#  %eax -> n
+.L0:
+	leaq	.LC9(%rip),%rdi  	#  addr of literal .LC9
+	call	write@PLT          	#  write()
+	movl	-28(%rbp),%eax     	#  n -> %eax
+	movl	$1,%ecx         	#  1 -> %ecx
+	subl	%ecx,%eax         	#  %eax - %ecx -> %eax
+	movl	%eax,-28(%rbp)     	#  %eax -> n
+	movl	-28(%rbp),%eax     	#  n -> %eax
+	movl	$0,%ecx         	#  0 -> %ecx
+	cmpl	%ecx,%eax           	#  compare %eax - %ecx
+	je	.L10 			#  jump if     ==
+	jmp	.L0 			#  jump 
+	jmp	.L11 			#  jump 
+.L10:
+.L11:
+	leaq	.LC12(%rip),%rdi  	#  addr of literal .LC12
+	call	writeln@PLT          	#  writeln()
+	movl	-32(%rbp),%eax     	#  i -> %eax
+	movl	$1,%ecx         	#  1 -> %ecx
+	addl	%ecx,%eax         	#  %eax + %ecx -> %eax
+	movl	%eax,-32(%rbp)     	#  %eax -> i
+	jmp	.L1 			#  jump 
+.L4:
+# ----------------------- begin Epilogue code ---------------------------
+	movq	%r9, %rbx        # restore %rbx (callee-saved) from %r9
+        leave
+        ret
+        .cfi_endproc
+.LFE0:
+        .size   graph1, .-graph1
+# ----------------- end Epilogue; Literal data follows ------------------
+        .section        .rodata
+	.align 16
+.LC666:                    # constant for floating negation
+	.long	0
+	.long	-2147483648
+	.long	0
+	.long	0
+	.align  4
+.LC9:
+	.string	" "
+	.align  4
+.LC12:
+	.string	"*"
+	.align  8
+.LC5:
+	.long	0   	#  0.062500
+	.long	1068498944
+	.align  8
+.LC6:
+	.long	0   	#  6.283180
+	.long	1075388922
+	.align  8
+.LC7:
+	.long	0   	#  32.000000
+	.long	1077936128
+	.align  8
+.LC8:
+	.long	0   	#  34.000000
+	.long	1078001664
+
+        .ident  "CS 375 Compiler - Spring 2020"
+ 0)
+                                                    (progn)
+                                                    (goto 0)))
+                                         (funcall writeln '*'))
+                                  (:= i (+ i 1))
+                                  (goto 1))))))
+
+If you use graph1i.pas (which uses iround() instead of round() ):
+
+(program graph1 (progn output)
+                (progn (:= i 0)
+                       (label 1)
+                       (if (<= i 32)
+                           (progn (:= x (* 6.250000e-02
+                                           (float i)))
+                                  (:= y (* (funcall exp (- x))
+                                           (funcall sin (* 6.283180e+00
+                                                           x))))
+                                  (:= n (+ (funcall iround (* 3.200000e+01
+                                                              y))
+                                           34))
+                                  (progn (label 0)
+                                         (funcall write ' ')
+                                         (:= n (- n 1))
+                                         (if (= n 0)
+                                             (progn)
+                                             (goto 0)))
+                                  (funcall writeln '*')
+                                  (:= i (+ i 1))
+                                  (goto 1)))))

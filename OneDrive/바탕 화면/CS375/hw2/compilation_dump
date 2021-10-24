@@ -1,0 +1,26 @@
+clang -c lexanc.c
+lexanc.c:246:11: warning: implicit declaration of function 'delimiterLookUp' is invalid in C99 [-Wimplicit-function-declaration]
+      if (delimiterLookUp(str) != 0 || operatorLookUp(str) != 0)
+          ^
+lexanc.c:246:40: warning: implicit declaration of function 'operatorLookUp' is invalid in C99 [-Wimplicit-function-declaration]
+      if (delimiterLookUp(str) != 0 || operatorLookUp(str) != 0)
+                                       ^
+lexanc.c:342:58: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  if ((c = peekchar()) == 'e' || (c = peekchar()) == 'E' && ((c = peek2char()) == '-'))
+                              ~~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lexanc.c:342:58: note: place parentheses around the '&&' expression to silence this warning
+  if ((c = peekchar()) == 'e' || (c = peekchar()) == 'E' && ((c = peek2char()) == '-'))
+                                                         ^
+                                 (                                                    )
+lexanc.c:371:10: error: no member named 'datatype' in 'struct tokn'
+    tok->datatype = INTEGER;
+    ~~~  ^
+lexanc.c:384:12: error: no member named 'datatype' in 'struct tokn'
+      tok->datatype = REAL;
+      ~~~  ^
+lexanc.c:392:12: error: no member named 'datatype' in 'struct tokn'
+      tok->datatype = REAL;
+      ~~~  ^
+3 warnings and 3 errors generated.
+makefile:39: recipe for target 'lexanc.o' failed
+make: *** [lexanc.o] Error 1
